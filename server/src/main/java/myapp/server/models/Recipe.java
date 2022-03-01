@@ -24,11 +24,7 @@ public class Recipe {
     }
 
     public int getCaloriesPerServings() {
-        return caloriesPerServings;
-    }
-
-    public void setCaloriesPerServings(int caloriesPerServings) {
-        this.caloriesPerServings = caloriesPerServings;
+        return this.caloriesPerServings = (int) this.calories / this.servings; 
     }
 
     public String getLabel() {
@@ -60,6 +56,7 @@ public class Recipe {
         this.totalTime = totalTime;
     }
 
+
     public JsonValue toJson() {
         return Json.createObjectBuilder()
                 .add("label", label)
@@ -67,6 +64,7 @@ public class Recipe {
                 .add("servings", servings)
                 .add("totalTime", totalTime)
                 .add("calories", calories)
+                .add("caloriesPerServing", getCaloriesPerServings())
                 .build();
     }
     
