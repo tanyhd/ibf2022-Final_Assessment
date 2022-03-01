@@ -1,0 +1,14 @@
+<h1>Search Result</h1>
+<div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Search Recipe" aria-label="Recipient's username" aria-describedby="button-addon2" #searchTerm>
+  <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="searchRecipe(searchTerm.value)">Search</button>
+</div>
+
+<div class="card" style="width: 18rem;" *ngFor="let i of recipesList">
+  <img src={{i.imageUrl}} class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{i.label}}</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
