@@ -1,6 +1,9 @@
 package myapp.server.models;
 
+import java.util.List;
+
 import jakarta.json.Json;
+import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonValue;
 
 public class Recipe {
@@ -10,8 +13,17 @@ public class Recipe {
     int totalTime;
     float calories;
     int caloriesPerServings;
+    List<Ingredients> ingredients;
 
     
+    public List<Ingredients> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredients> ingredients) {
+        this.ingredients = ingredients;
+    }
+
     public Recipe() {
     }
 
@@ -65,7 +77,15 @@ public class Recipe {
                 .add("totalTime", totalTime)
                 .add("calories", calories)
                 .add("caloriesPerServing", getCaloriesPerServings())
+                .add("ingredients", ingredientsToJson())
                 .build();
     }
-    
+
+    public JsonValue ingredientsToJson() {
+        JsonArrayBuilder ingredientsBuilder = Json.createArrayBuilder();
+        for(int i=0; i < this.ingredients.size(); i++) {
+            ingredientsBuilder.add(this.ingredients.get(i).toJson());
+        }
+        return ingredientsBuilder.build();
+    }
 }

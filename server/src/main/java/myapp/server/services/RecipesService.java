@@ -4,6 +4,7 @@ import jakarta.json.Json;
 import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
+import myapp.server.models.Ingredients;
 import myapp.server.models.Recipe;
 
 import java.io.ByteArrayInputStream;
@@ -11,8 +12,10 @@ import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -40,22 +43,31 @@ public class RecipesService {
 
         String body = resp.getBody();
         List<Recipe> recipes = new LinkedList<>();
-        //String returnList = "";
   
         try(InputStream is = new ByteArrayInputStream(body.getBytes())) {
 
             JsonReader reader = Json.createReader(is);
             JsonObject result = reader.readObject();
             JsonArray resultArray = result.getJsonArray("hits");
-            
-            for(int i=0; i<resultArray.size(); i++) {
+            System.out.println(resultArray.size());
+
+            for(int i = 0; i < resultArray.size(); i++) {
                 JsonObject recipeResult = resultArray.getJsonObject(i).getJsonObject("recipe");
+                JsonArray ingredientsListArray = recipeResult.getJsonArray("ingredients");
+    
                 Recipe recipe = new Recipe();
                 recipe.setLabel(recipeResult.getString("label"));
                 recipe.setImageUrl(recipeResult.getString("image"));
                 recipe.setServings(recipeResult.getInt("yield"));
                 recipe.setTotalTime(recipeResult.getInt("totalTime"));
                 recipe.setCalories(recipeResult.getInt("calories"));
+
+                List<Ingredients> ingredientsList = new LinkedList<>();
+                for(int j = 0; j < ingredientsListArray.size(); j++) {
+                    Ingredients ingredients = new Ingredients();
+                    ingredientsList.add(ingredients.populate(ingredientsListArray.getJsonObject(j)));
+                }
+                recipe.setIngredients(ingredientsList);
                 recipes.add(recipe);
                 //resultArray.getJsonObject(i).getJsonObject("recipe").getString("label")
             }
@@ -64,4 +76,7 @@ public class RecipesService {
         
         return recipes;
     }
+
+
+    
 }
