@@ -13,4 +13,10 @@ export class RecipesService {
       this.http.get<Recipe[]>(`http://localhost:8080/api/recipes/${searchTerm}`)
     ))
   }
+
+  postImageToSearch_Food(formData: FormData) {
+    return(lastValueFrom(
+      this.http.post<any>("http://localhost:8080/api/getFoodLabel", formData)
+    ))
+  }
 }

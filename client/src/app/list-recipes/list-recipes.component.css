@@ -1,0 +1,10 @@
+.basic-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+
+.input-group{
+  padding: 1em;
+}

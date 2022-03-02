@@ -5,5 +5,5 @@ export interface Recipe{
   servings: number;
   totalTime: number;
   calories: number;
-  caloriesPerServings: number;
+  caloriesPerServing: number;
 }
