@@ -35,9 +35,18 @@ public class RecipesRestController {
     public ResponseEntity<String> getAllRecipes(@PathVariable String food) {
         food = food.trim().replaceAll(" ", "+");
         List<Recipe> recipes = recipesService.getRecipes(food);
-        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
-        recipes.stream().forEach(v -> arrBuilder.add(v.toJson()));
-        return ResponseEntity.ok(arrBuilder.build().toString());
+        if(recipes.size() == 0) {
+            JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+            recipes.stream().forEach(v -> arrBuilder.add(v.toJson()));
+            return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(arrBuilder.build().toString());
+        } else {
+            JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+            recipes.stream().forEach(v -> arrBuilder.add(v.toJson()));
+            return ResponseEntity.ok(arrBuilder.build().toString());
+        }
     }
 
     //To get food label from supplied image
