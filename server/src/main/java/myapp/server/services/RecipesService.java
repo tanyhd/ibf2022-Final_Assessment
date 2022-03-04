@@ -26,6 +26,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class RecipesService {
 
     public List<Recipe> getRecipes(String food) {
+
+        //System.out.println(food);
         String url = UriComponentsBuilder
                     .fromUriString("https://api.edamam.com/api/recipes/v2")
                     .queryParam("type", "public")
@@ -34,6 +36,7 @@ public class RecipesService {
                     .queryParam("app_key", System.getenv("edaman_app_key"))
                     .queryParam("imageSize", "REGULAR")
                     .toUriString();
+        //System.out.println(url);
         RequestEntity<Void> req = RequestEntity.get(url).build();
         RestTemplate template = new RestTemplate();
         ResponseEntity<String> resp = template.exchange(req, String.class);
@@ -50,6 +53,8 @@ public class RecipesService {
             JsonReader reader = Json.createReader(is);
             JsonObject result = reader.readObject();
             JsonArray resultArray = result.getJsonArray("hits");
+
+            //print result return array size
             System.out.println(resultArray.size());
 
             for(int i = 0; i < resultArray.size(); i++) {
@@ -86,8 +91,11 @@ public class RecipesService {
 
             JsonReader reader = Json.createReader(is);
             JsonObject result = reader.readObject();
+            //System.out.println(result);
             JsonArray resultArray = result.getJsonArray("food_results");
-            foodLabel = resultArray.getJsonArray(0).get(0).toString();
+            foodLabel = resultArray.getJsonArray(0).get(0).toString().replace(" ", "+");
+            foodLabel = foodLabel.substring(1, foodLabel.length()-1);
+            //System.out.println(foodLabel);
             percent = Float.parseFloat(resultArray.getJsonArray(1).get(0).toString());
         
         } catch (Exception e) {}

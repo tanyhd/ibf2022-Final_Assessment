@@ -23,6 +23,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 
 @RestController
 public class RecipesRestController {
@@ -32,6 +33,7 @@ public class RecipesRestController {
 
     @GetMapping(path="/api/recipes/{food}", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getAllRecipes(@PathVariable String food) {
+        food = food.trim().replaceAll(" ", "+");
         List<Recipe> recipes = recipesService.getRecipes(food);
         JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
         recipes.stream().forEach(v -> arrBuilder.add(v.toJson()));
@@ -60,9 +62,24 @@ public class RecipesRestController {
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.postForEntity("https://api.foodai.org/v4.1/classify", request , String.class);
-        //System.out.println(response);
-        System.out.println(recipesService.getFoodLabel(response));
-        return response;
+
+        String foodLabel = recipesService.getFoodLabel(response);
+        
+        //search for receipe from given food label
+        List<Recipe> recipes = recipesService.getRecipes(foodLabel);
+        if(recipes.size() == 0) {
+            JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+            recipes.stream().forEach(v -> arrBuilder.add(v.toJson()));
+            return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(arrBuilder.build().toString());
+        } else {
+            JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+            recipes.stream().forEach(v -> arrBuilder.add(v.toJson()));
+            return ResponseEntity.ok(arrBuilder.build().toString());
+        }
+        
         
     }
 
