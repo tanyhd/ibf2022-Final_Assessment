@@ -14,7 +14,6 @@ import { HomeComponent } from './home/home.component';
 import { RecipesService } from './recipes.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LoginComponent } from './login/login.component';
-import { ImageSearchComponent } from './image-search/image-search.component';
 import { MealPlannerComponent } from './meal-planner/meal-planner.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserService } from './user.services';
@@ -25,7 +24,6 @@ const  appRoutes: Routes = [
   { path: "", component: HomeComponent},
   { path: "listRecipe", component: ListRecipesComponent},
   { path: "recipesDetail", component: RecipesDetailsComponent},
-  { path: "imageSearch", component: ImageSearchComponent},
   { path: "mealPlanner", component: MealPlannerComponent},
   { path: "login", component: LoginComponent},
   { path: "signup", component: SignupComponent}
@@ -38,7 +36,6 @@ const  appRoutes: Routes = [
     ListRecipesComponent,
     RecipesDetailsComponent,
     LoginComponent,
-    ImageSearchComponent,
     MealPlannerComponent,
     SignupComponent,
     MessageResponseComponent,
