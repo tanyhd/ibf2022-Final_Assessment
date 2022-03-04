@@ -16,6 +16,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { LoginComponent } from './login/login.component';
 import { ImageSearchComponent } from './image-search/image-search.component';
 import { MealPlannerComponent } from './meal-planner/meal-planner.component';
+import { SignupComponent } from './signup/signup.component';
+import { UserService } from './user.services';
+import { MessageResponseComponent } from './message-response/message-response.component';
 
 
 const  appRoutes: Routes = [
@@ -25,6 +28,7 @@ const  appRoutes: Routes = [
   { path: "imageSearch", component: ImageSearchComponent},
   { path: "mealPlanner", component: MealPlannerComponent},
   { path: "login", component: LoginComponent},
+  { path: "signup", component: SignupComponent}
 ]
 
 @NgModule({
@@ -35,7 +39,9 @@ const  appRoutes: Routes = [
     RecipesDetailsComponent,
     LoginComponent,
     ImageSearchComponent,
-    MealPlannerComponent
+    MealPlannerComponent,
+    SignupComponent,
+    MessageResponseComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +54,7 @@ const  appRoutes: Routes = [
     WebcamModule,
     FlexLayoutModule
   ],
-  providers: [RecipesService],
+  providers: [RecipesService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

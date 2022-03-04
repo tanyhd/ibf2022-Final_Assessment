@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="container">
+    <form [formGroup]="form" (ngSubmit)="submitForm()">
+      <div class="mb-3">
+        <div class="row">
+          <div class="col">
+            <label class="form-label"><strong>Name</strong></label>
+            <input type="text" class="form-control" placeholder="name"  formControlName="name">
+          </div>
+          <div class="col">
+            <label class="form-label"><strong>Username</strong></label>
+            <input type="text" class="form-control" placeholder="eg. tan85"  formControlName="username">
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label"><strong>Email</strong></label>
+        <input type="email" class="form-control" placeholder="name@gmail.com" formControlName="email">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label"><strong>Password</strong></label>
+        <input type="password" class="form-control" placeholder="8+ characters" formControlName="password">
+      </div>
+      <div class="form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="gridCheck">
+          <label class="form-check-label" for="gridCheck">
+            Check me out
+          </label>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Create Account</button>
+    </form>
+  </div>
+</body>
+</html>
+
+

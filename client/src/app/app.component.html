@@ -26,45 +26,27 @@
       <ng-template ngbNavContent></ng-template>
     </li>
     <li ngbNavItem>
-      <a ngbNavLink [routerLink]="['/login']">Login</a>
+      <a ngbNavLink [routerLink]="['/login']">Sign In</a>
       <ng-template ngbNavContent></ng-template>
     </li>
+    <li ngbNavItem>
+      <a ngbNavLink [routerLink]="['/signup']">Sign Up</a>
+      <ng-template ngbNavContent></ng-template>
+    </li>
+    <li>
+      <div class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>UserName</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem>Profile</button>
+              <button ngbDropdownItem>Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
   </ul>
-   <ngb-carousel>
-          <ng-template ngbSlide>
-            <div class="picsum-img-wrapper">
-              <div class="carouselCont">
-                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Random first slide" height="500">
-              </div>
-            </div>
-            <div class="carousel-caption">
-              <h3>First slide label</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </div>
-          </ng-template>
-          <ng-template ngbSlide>
-            <div class="picsum-img-wrapper">
-              <div class="carouselCont">
-                <img src="https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Random second slide" height="500">
-              </div>
-            </div>
-            <div class="carousel-caption">
-              <h3>Second slide label</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-          </ng-template>
-          <ng-template ngbSlide>
-            <div class="picsum-img-wrapper">
-              <div class="carouselCont">
-                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Random third slide" height="500">
-              </div>
-            </div>
-            <div class="carousel-caption">
-              <h3>Third slide label</h3>
-              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-            </div>
-          </ng-template>
-        </ngb-carousel>
   <router-outlet></router-outlet>
 </body>
 </html>

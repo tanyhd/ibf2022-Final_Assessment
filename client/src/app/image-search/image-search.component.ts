@@ -55,5 +55,4 @@ export class ImageSearchComponent implements OnInit {
     var blob = new Blob([ab], {type: mimeString});
     return blob;
   }
-
 }
