@@ -29,7 +29,10 @@ export class ListRecipesComponent implements OnInit {
         data.forEach(element => {
           this.recipesList.push(element as Recipe)
         })
-      });
+      }).catch(error => {
+        alert("Unable to find recipe, please search again")
+        this.ngOnInit()
+      })
     console.log(this.recipesList.length)
   }
 
@@ -58,7 +61,10 @@ export class ListRecipesComponent implements OnInit {
         data.forEach((element: Recipe) => {
           this.recipesList.push(element as Recipe)
         })
-      });
+      }).catch(error => {
+        alert("Unable to find recipe, please search again")
+        this.ngOnInit()
+      })
 
     console.log(this.recipesList.length)
   }
