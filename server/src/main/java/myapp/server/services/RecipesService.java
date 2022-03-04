@@ -4,6 +4,7 @@ import jakarta.json.Json;
 import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
+import jakarta.json.JsonValue;
 import myapp.server.models.Ingredients;
 import myapp.server.models.Recipe;
 
@@ -75,6 +76,23 @@ public class RecipesService {
         } catch (Exception e) {}
         
         return recipes;
+    }
+
+    public String getFoodLabel(ResponseEntity<String> response) {
+        String foodLabel = "";
+        float percent = 0;
+
+        try(InputStream is = new ByteArrayInputStream(response.getBody().getBytes())) {
+
+            JsonReader reader = Json.createReader(is);
+            JsonObject result = reader.readObject();
+            JsonArray resultArray = result.getJsonArray("food_results");
+            foodLabel = resultArray.getJsonArray(0).get(0).toString();
+            percent = Float.parseFloat(resultArray.getJsonArray(1).get(0).toString());
+        
+        } catch (Exception e) {}
+        return foodLabel;
+
     }
 
 

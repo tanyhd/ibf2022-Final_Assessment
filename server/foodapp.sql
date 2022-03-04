@@ -7,6 +7,7 @@ use foodapp;
 create table user_profile (
 	user_id int auto_increment not null,
     username varchar(64) not null,
+    name varchar(64) not null,
     email varchar(64),
     password varchar(512) not null,
     primary key(user_id)

@@ -15,13 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.json.Json;
 import jakarta.json.JsonArrayBuilder;
-import jakarta.json.JsonObjectBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-
 import myapp.server.models.Recipe;
 import myapp.server.services.RecipesService;
-import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.http.HttpEntity;
@@ -63,7 +60,8 @@ public class RecipesRestController {
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.postForEntity("https://api.foodai.org/v4.1/classify", request , String.class);
-        System.out.println(response);
+        //System.out.println(response);
+        System.out.println(recipesService.getFoodLabel(response));
         return response;
         
     }

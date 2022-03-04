@@ -4,10 +4,17 @@ package myapp.server.models;
 public class User {
     int userId;
     String username;
+    String name;
     String email;
     String password;
 
     
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
     public int getUserId() {
         return userId;
     }
