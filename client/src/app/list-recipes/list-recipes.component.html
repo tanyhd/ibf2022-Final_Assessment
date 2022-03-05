@@ -24,14 +24,20 @@
 
       <div class="contant-wrapper">
         <div class="container">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search Recipe" aria-label="" aria-describedby="button-addon2" #searchTerm>
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="searchRecipe(searchTerm.value)">Search</button>
+          <div class="text-content">
+            <h1 class="title">
+              Recipe Search
+            </h1>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Type one or more keywords" aria-label="" aria-describedby="button-addon2" #searchTerm>
+              <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="searchRecipe(searchTerm.value)">Search</button>
+            </div>
+            <div class="input-group mb-3">
+              <input type="file" class="file-input" (change)="onFileSelected($event)" placeholder="Upload Image" aria-label="" aria-describedby="button-addon2">
+              <button class="btn btn-outline-secondary" type="button" (click)="fileUpload()" id="button-addon2">Upload</button>
+            </div>
           </div>
-          <div class="input-group mb-3">
-            <input type="file" class="file-input" (change)="onFileSelected($event)" placeholder="Upload Image" aria-label="" aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" (click)="fileUpload()" id="button-addon2">Upload</button>
-          </div>
+
           <div class="background">
             <div class="basic-grid">
               <div class="card" style="width: 18rem;" *ngFor="let recipe of recipesList">
@@ -41,12 +47,9 @@
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item"><strong>Calories: </strong>{{recipe.caloriesPerServing}} kcal</li>
                     <li class="list-group-item"><strong>Servings: </strong>{{recipe.servings}} pax</li>
-                    <li class="list-group-item"><strong>Cook Time: </strong><span *ngIf="recipe.totalTime==0; else cookTime">10 minutes</span></li>
-                    <ng-template #cookTime>
-                      {{recipe.totalTime}} minutes
-                    </ng-template>
+                    <li class="list-group-item"><strong>Ingredients: </strong>{{recipe.ingredients.length}}</li>
                   </ul>
-                  <a href="#" class="btn btn-primary" [routerLink]="['/recipesDetail']">Details</a>
+                  <a href="#" class="btn btn-primary" [routerLink]="['/recipesDetail']" [state]="{ data: {recipe}}">Details</a>
                 </div>
               </div>
             </div>

@@ -1,1 +1,59 @@
-<p>recipes-details works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+  <div class="background">
+    <div class="body-wrapper">
+      <nav class="navigation">
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="" class="nav-link" [routerLink]="['']">Home</a></li>
+          <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
+          <li class="nav-item"><a href="" class="nav-link" [routerLink]="['/listRecipe']">Recipe Search</a></li>
+          <li class="nav-item"><a href="" class="nav-link" [routerLink]="['/mealPlanner']">Meal Planner</a></li>
+          <li class="nav-item"><a href="" class="nav-link" [routerLink]="['/login']">Login</a></li>
+          <li class="nav-item"><a href="" class="nav-link"[routerLink]="['/signup']">Sign Up</a></li>
+        </ul>
+      </nav>
+
+      <div class="contant-wrapper">
+        <div class="container">
+          <div class="text-content">
+            <h1 class="title">
+              {{recipe.label}}
+            </h1>
+            <p>Calories Per Serving: {{recipe.caloriesPerServing}}</p>
+            <p>Number of people per serving {{recipe.servings}}</p>
+            <p>Number of ingredients: {{numberOfIngredients}}</p>
+            <p>Source {{recipe.source}}</p>
+            External link {{recipe.url}}
+            <br>
+          </div>
+          <div class="background">
+            <div class="basic-grid">
+              <div class="card" style="width: 14rem;" *ngFor="let ingredient of recipe.ingredients">
+                <img src={{ingredient.imageUrl}} class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{ingredient.food}}</h5>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Measurement: </strong>{{ingredient.measure}}</li>
+                    <li class="list-group-item"><strong>Quantity: </strong>{{ingredient.quantity}}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <app-background></app-background>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

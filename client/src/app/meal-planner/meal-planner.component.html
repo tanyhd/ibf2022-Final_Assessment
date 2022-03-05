@@ -1,1 +1,207 @@
-<p>meal-planner works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+  <div class="background">
+    <div class="body-wrapper">
+      <nav class="navigation">
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="" class="nav-link" [routerLink]="['']">Home</a></li>
+          <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
+          <li class="nav-item"><a href="" class="nav-link" [routerLink]="['/listRecipe']">Recipe Search</a></li>
+          <li class="nav-item"><a href="" class="nav-link" [routerLink]="['/mealPlanner']">Meal Planner</a></li>
+          <li class="nav-item"><a href="" class="nav-link" [routerLink]="['/login']">Login</a></li>
+          <li class="nav-item"><a href="" class="nav-link"[routerLink]="['/signup']">Sign Up</a></li>
+        </ul>
+      </nav>
+
+      <div class="contant-wrapper">
+        <div class="container">
+          <div class="text-content">
+            <h1 class="title">
+              Meal Planner
+            </h1>
+            <form [formGroup]="form" (ngSubmit)="searchRecipeFromRequirement()">
+              <div class="form-row align-items-center">
+                <div class="col-auto my-1">
+                  <label class="mr-sm-2" for="inlineFormCustomSelect">How many meals do you prefer in a day ?</label><br>
+                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" formControlName="mealType">
+                    <option selected value="3">Three</option>
+                    <option value="5">Five</option>
+                    <option value="2">Two</option>
+                  </select>
+                </div>
+              </div>
+              <br>
+              <strong><p>Dietary preferences</p></strong>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="diet" id="balanced" value="balanced" formControlName="diet">
+                <label class="form-check-label" for="balanced">
+                  Balance Diet (Recommended - Protein/Fat/Carb values in 15/35/50 ratio)
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="diet" id="low-carb" value="low-carb" checked formControlName="diet">
+                <label class="form-check-label" for="low-carb">
+                  Low-Carb (Less than 20% of total calories from carbs)
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="diet" id="low-fat" value="low-fat" checked formControlName="diet">
+                <label class="form-check-label" for="low-fat">
+                  Low-Fat (Less than 15% of total calories from fat)
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="diet" id="low-sodium" value="low-sodium" checked formControlName="diet">
+                <label class="form-check-label" for="low-sodium">
+                  Low-Sodium (Less than 140mg Na per serving)
+                </label>
+              </div>
+              <br>
+              <strong><p>Calorie Intake</p></strong>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="calorie" id="calorie1">
+                <label class="form-check-label" for="calorie1">
+                  Go with recommended
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="calorie" id="calorie2">
+                <label class="form-check-label" for="calorie2">
+                  Enter your own values
+                </label>
+              </div>
+
+              <div class="col-auto my-1">
+                <button type="submit" class="btn btn-primary">Generate Meal Plan</button>
+              </div>
+            </form>
+          </div>
+          <div class="btn-group" role="group" aria-label="Basic example" *ngIf="recipesListBreakfast.length > 0">
+            <button type="button" class="btn btn-secondary" (click)="monday()">Monday</button>
+            <button type="button" class="btn btn-secondary" (click)="tuesday()">Tuesday</button>
+            <button type="button" class="btn btn-secondary" (click)="wednesday()">Wednesday</button>
+            <button type="button" class="btn btn-secondary" (click)="thursday()">Thursday</button>
+            <button type="button" class="btn btn-secondary" (click)="friday()">Friday</button>
+            <button type="button" class="btn btn-secondary" (click)="saturday()">Saturday</button>
+            <button type="button" class="btn btn-secondary" (click)="sunday()">Sunday</button>
+          </div>
+
+          <div class="basic-grid">
+            <div  *ngIf="recipesListBreakfast.length > 0">
+              <h2>Breakfast</h2>
+              <div class="card" style="width: 18rem;">
+                <img src={{recipesListBreakfast[day].imageUrl}} class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{recipesListBreakfast[day].label}}</h5>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Calories: </strong>{{recipesListBreakfast[day].caloriesPerServing}} kcal</li>
+                    <li class="list-group-item"><strong>Servings: </strong>{{recipesListBreakfast[day].servings}} pax</li>
+                    <li class="list-group-item"><strong>Ingredients: </strong>{{recipesListBreakfast[day].ingredients.length}}</li>
+                  </ul>
+                  <a href="#" class="btn btn-primary" [routerLink]="['/recipesDetail']" [state]="{ data: {}}">Details</a>
+                </div>
+              </div>
+            </div>
+            <div  *ngIf="recipesListSnack.length > 0">
+              <h2>Snack</h2>
+              <div class="card" style="width: 18rem;">
+                <img src={{recipesListSnack[day].imageUrl}} class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{recipesListSnack[day].label}}</h5>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Calories: </strong>{{recipesListSnack[day].caloriesPerServing}} kcal</li>
+                    <li class="list-group-item"><strong>Servings: </strong>{{recipesListSnack[day].servings}} pax</li>
+                    <li class="list-group-item"><strong>Ingredients: </strong>{{recipesListSnack[day].ingredients.length}}</li>
+                  </ul>
+                  <a href="#" class="btn btn-primary" [routerLink]="['/recipesDetail']">Details</a>
+                </div>
+              </div>
+            </div>
+            <div  *ngIf="recipesListLunch.length > 0">
+              <h2>Lunch</h2>
+              <div class="card" style="width: 18rem;">
+                <img src={{recipesListLunch[day].imageUrl}} class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{recipesListLunch[day].label}}</h5>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Calories: </strong>{{recipesListLunch[day].caloriesPerServing}} kcal</li>
+                    <li class="list-group-item"><strong>Servings: </strong>{{recipesListLunch[day].servings}} pax</li>
+                    <li class="list-group-item"><strong>Ingredients: </strong>{{recipesListLunch[day].ingredients.length}}</li>
+                  </ul>
+                  <a href="#" class="btn btn-primary" [routerLink]="['/recipesDetail']">Details</a>
+                </div>
+              </div>
+            </div>
+            <div  *ngIf="recipesListTeatime.length > 0">
+              <h2>Tea Time</h2>
+              <div class="card" style="width: 18rem;">
+                <img src={{recipesListTeatime[day].imageUrl}} class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{recipesListTeatime[day].label}}</h5>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Calories: </strong>{{recipesListTeatime[day].caloriesPerServing}} kcal</li>
+                    <li class="list-group-item"><strong>Servings: </strong>{{recipesListTeatime[day].servings}} pax</li>
+                    <li class="list-group-item"><strong>Ingredients: </strong>{{recipesListTeatime[day].ingredients.length}}</li>
+                  </ul>
+                  <a href="#" class="btn btn-primary" [routerLink]="['/recipesDetail']">Details</a>
+                </div>
+              </div>
+            </div>
+            <div  *ngIf="recipesListDinner.length > 0">
+              <h2>Dinner</h2>
+              <div class="card" style="width: 18rem;">
+                <img src={{recipesListDinner[day].imageUrl}} class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{recipesListDinner[day].label}}</h5>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Calories: </strong>{{recipesListDinner[day].caloriesPerServing}} kcal</li>
+                    <li class="list-group-item"><strong>Servings: </strong>{{recipesListDinner[day].servings}} pax</li>
+                    <li class="list-group-item"><strong>Ingredients: </strong>{{recipesListDinner[day].ingredients.length}}</li>
+                  </ul>
+                  <a href="#" class="btn btn-primary" [routerLink]="['/recipesDetail']">Details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <app-background></app-background>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="container">
+
+  </div>
+
+
+
+</body>
+</html>
+
