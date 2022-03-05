@@ -18,6 +18,7 @@ import { MealPlannerComponent } from './meal-planner/meal-planner.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserService } from './user.services';
 import { MessageResponseComponent } from './message-response/message-response.component';
+import { BackgroundComponent } from './background/background.component';
 
 const  appRoutes: Routes = [
   { path: "", component: HomeComponent},
@@ -38,6 +39,7 @@ const  appRoutes: Routes = [
     MealPlannerComponent,
     SignupComponent,
     MessageResponseComponent,
+    BackgroundComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,11 +4,57 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Page</title>
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 </head>
 <body>
+  <div class="body-wrapper">
+    <nav class="navigation">
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="" class="nav-link" [routerLink]="['']">Home</a></li>
+        <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
+        <li class="nav-item"><a href="" class="nav-link" [routerLink]="['/listRecipe']">Recipe Search</a></li>
+        <li class="nav-item"><a href="" class="nav-link" [routerLink]="['/mealPlanner']">Meal Planner</a></li>
+        <li class="nav-item"><a href="" class="nav-link" [routerLink]="['/login']">Login</a></li>
+        <li class="nav-item"><a href="" class="nav-link"[routerLink]="['/signup']">Sign Up</a></li>
+      </ul>
+    </nav>
+
+    <div class="contant-wrapper">
+      <div class="container">
+        <div class="body-content">
+          <div class="col-md-5">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="text-content">
+                  <h1 class="title">
+                    The Carrot Chef
+                  </h1>
+                  <p class="last-title">A meal cater for you</p>
+                  <a href="" class="try-btn">Try it now</a>
+                  <p class="banner-des">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="web-social">
+                <a href="" class="web-address">WWW.THECARROTCHEF.COM</a>
+                <div class="social">
+                  <ul class="social-ul">
+                    <li class="social-li"><a href="" class="social-link"><span class="fab fa-twitter"></span></a></li>
+                    <li class="social-li"><a href="" class="social-link"><span class="fab fa-facebook-f"></span></a></li>
+                    <li class="social-li"><a href="" class="social-link"><span class="fab fa-instagram"></span></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 </body>
 </html>
-
-
