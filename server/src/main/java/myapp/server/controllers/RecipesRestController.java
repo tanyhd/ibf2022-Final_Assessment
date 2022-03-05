@@ -18,6 +18,7 @@ import jakarta.json.JsonArrayBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import myapp.server.models.Recipe;
+import myapp.server.models.RecipeRequirement;
 import myapp.server.services.RecipesService;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -49,15 +50,36 @@ public class RecipesRestController {
         }
     }
 
+    @GetMapping(path="/api/recipes/meal/{mealRequirement}", produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> getRecipeBaseOnRequirement(@PathVariable String mealRequirement) {
+        RecipeRequirement recipeRequirment = new RecipeRequirement();
+        String requirment[] = mealRequirement.split(" ");
+        recipeRequirment.setDiet(requirment[0]);
+        recipeRequirment.setMealType(requirment[1]);
+        recipeRequirment.setCalories(requirment[2]);
+        
+        List<Recipe> recipes = recipesService.getRecipesBaseOnRequirement(recipeRequirment);
+        if(recipes.size() == 0) {
+            JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+            recipes.stream().forEach(v -> arrBuilder.add(v.toJson()));
+            return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(arrBuilder.build().toString());
+        } else {
+            JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+            recipes.stream().forEach(v -> arrBuilder.add(v.toJson()));
+            return ResponseEntity.ok(arrBuilder.build().toString());
+        }
+    }
+
     //To get food label from supplied image
     @PostMapping(path="api/getFoodLabel", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> getImageLabel(@RequestParam(name="image") MultipartFile image) throws IOException {
 
         byte[] buff = new byte[0];
         buff = image.getBytes();
-
         String s = Base64.getEncoder().encodeToString(buff);
-
         String base64ImageTest = "data:image/jpeg;base64," + s;
 
         HttpHeaders headers = new HttpHeaders();
@@ -71,7 +93,6 @@ public class RecipesRestController {
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.postForEntity("https://api.foodai.org/v4.1/classify", request , String.class);
-
         String foodLabel = recipesService.getFoodLabel(response);
         
         //search for receipe from given food label
@@ -88,8 +109,6 @@ public class RecipesRestController {
             recipes.stream().forEach(v -> arrBuilder.add(v.toJson()));
             return ResponseEntity.ok(arrBuilder.build().toString());
         }
-        
-        
     }
 
 }

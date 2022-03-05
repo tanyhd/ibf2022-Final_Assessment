@@ -14,8 +14,26 @@ public class Recipe {
     float calories;
     int caloriesPerServings;
     List<Ingredients> ingredients;
+    String source; //external source name
+    String url; //external source for detail cooking instruction
 
     
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public List<Ingredients> getIngredients() {
         return ingredients;
     }
@@ -78,6 +96,8 @@ public class Recipe {
                 .add("calories", calories)
                 .add("caloriesPerServing", getCaloriesPerServings())
                 .add("ingredients", ingredientsToJson())
+                .add("source", source)
+                .add("url", url)
                 .build();
     }
 

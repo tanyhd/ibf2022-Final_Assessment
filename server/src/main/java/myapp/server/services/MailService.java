@@ -31,7 +31,7 @@ public class MailService {
            }
         });
         Message msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress("\"The Food App\" <dtanyhmail@gmail.com>", false));
+        msg.setFrom(new InternetAddress("\"The Carrot Chef\" <dtanyhmail@gmail.com>", false));
      
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail));
         msg.setSubject("Welcome " + userName + " to Food App");
