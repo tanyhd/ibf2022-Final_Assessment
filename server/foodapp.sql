@@ -16,8 +16,7 @@ create table user_profile (
 create table inventory_line_item (
 	item_id int auto_increment not null,
     name varchar(64),
-    quantity int,
-    price float,
+    quantity int,inventory_line_itemuser_profile
     user_id int,
     
     primary key(item_id),

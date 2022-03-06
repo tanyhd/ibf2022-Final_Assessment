@@ -1,5 +1,13 @@
 package myapp.server.models;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import org.springframework.jdbc.support.rowset.SqlRowSet;
+
+import jakarta.json.Json;
+import jakarta.json.JsonArrayBuilder;
+import jakarta.json.JsonValue;
 
 public class User {
     int userId;
@@ -7,8 +15,14 @@ public class User {
     String name;
     String email;
     String password;
+    List<InventoryLineItem> lineItem = new LinkedList<>(); 
 
-    
+    public List<InventoryLineItem> getLineItem() {
+        return lineItem;
+    }
+    public void setLineItem(List<InventoryLineItem> lineItem) {
+        this.lineItem = lineItem;
+    }
     public String getName() {
         return name;
     }
@@ -40,5 +54,30 @@ public class User {
         this.password = password;
     }
     
+    public User populate (SqlRowSet rs, List<InventoryLineItem> lineItem) {
+        User user = new User();
+        user.setUsername(rs.getString("username"));
+        user.setName(rs.getString("name"));
+        user.setEmail(rs.getString("email"));
+        user.setLineItem(lineItem);
+        return user;
+    }
+
+    public JsonValue toJson() {
+        return Json.createObjectBuilder()
+                .add("username", username)
+                .add("name", name)
+                .add("email", email)
+                .add("lineItem", lineItemsToJson())
+                .build();
+    }
+
+    public JsonValue lineItemsToJson() {
+        JsonArrayBuilder lineItemsBuilder = Json.createArrayBuilder();
+        for(int i = 0; i < this.lineItem.size(); i++) {
+            lineItemsBuilder.add(this.lineItem.get(i).toJson());
+        }
+        return lineItemsBuilder.build();
+    }
     
 }

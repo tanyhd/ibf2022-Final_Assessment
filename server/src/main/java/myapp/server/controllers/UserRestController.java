@@ -1,10 +1,13 @@
 package myapp.server.controllers;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.json.Json;
+import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonObjectBuilder;
 import jakarta.json.JsonReader;
@@ -50,24 +53,43 @@ public class UserRestController {
             }
 
         } catch (Exception e) {}
+        String success = "User added successfully";
+        String failure = "failed to add user";
+        if (response == true) {
+            //added new user and send email
+            //mailService.sendmail(user.getUsername(), user.getEmail());
+        }
+        return responseMessage(response, success, failure);
+    }
 
+
+    @GetMapping(path ="api/user/login/{email}/{password}")
+    public ResponseEntity<String> getUser(@PathVariable String email, @PathVariable String password) {
+        User user = new User();
+        user = userRepo.getUser(email, password);
+        if (user != null) {
+            return ResponseEntity.ok(user.toJson().toString());
+        } else {
+            String success = "User information retrive";
+            String failure = "User does not exist";
+            return responseMessage(false, success, failure);
+        }
+    }
+
+    public ResponseEntity<String> responseMessage(boolean response, String success, String failure) {
         JsonObjectBuilder returnMessage = Json.createObjectBuilder();
         if(response == true) {
-            returnMessage.add("message", "User added successfully");
-            //mailService.sendmail(user.getUsername(), user.getEmail());
+            returnMessage.add("message", success);
             return ResponseEntity
             .status(HttpStatus.CREATED)
             .contentType(MediaType.APPLICATION_JSON)
             .body(returnMessage.build().toString());
         } else {
-            returnMessage.add("message", "failed to add user");
+            returnMessage.add("message", failure);
             return ResponseEntity
             .status(HttpStatus.EXPECTATION_FAILED)
             .contentType(MediaType.APPLICATION_JSON)
             .body(returnMessage.build().toString());
         }
-        
-        
-    
     }
 }
