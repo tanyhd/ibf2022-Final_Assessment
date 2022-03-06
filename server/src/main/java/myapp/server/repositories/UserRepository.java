@@ -2,6 +2,7 @@ package myapp.server.repositories;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,6 +23,9 @@ public class UserRepository {
     public static final String SQL_CHECK_USER = "select count(email) as count, user_id as id from user_profile where email = ? and password = sha1(?)";
     public static final String SQL_GET_USER_INVENTORY_LIST = "select * from inventory_line_item where user_id = ?";
     public static final String SQL_GET_USER = "select * from user_profile where user_id = ?";
+    public static final String SQL_DELETE_USER_INVENTORY_LIST = "delete from inventory_line_item where user_id = ?";
+    public static final String SQL_GET_USER_ID_FROM_EMAIL = "select user_id as id from user_profile where email = ?";
+    public static final String SQL_ADD_INVENTORY_LINE_ITEM = "INSERT INTO inventory_line_item (name, quantity, user_id) VALUES(?, ?, ?)";
 
     public boolean addUser(User user) {
         int added = template.update(SQL_ADD_USER, user.getUsername(), user.getName(), user.getEmail(), user.getPassword());
@@ -67,4 +71,20 @@ public class UserRepository {
             return user;
         } 
     }
-}
+
+    int id = 0;
+
+    public boolean updateUser(User user) {
+        SqlRowSet rsUser = template.queryForRowSet(SQL_GET_USER_ID_FROM_EMAIL, user.getEmail());
+        while(rsUser.next()) {
+            id = rsUser.getInt("id");
+        }
+        template.update(SQL_DELETE_USER_INVENTORY_LIST, id);
+        List<Object[]> lineItemArray = user.getLineItem().stream()
+                                        .map(lineitem -> new Object[] {lineitem.getName(), lineitem.getQuantity(), id})
+                                        .collect(Collectors.toList());
+        int addedArray[] = template.batchUpdate(
+                        SQL_ADD_INVENTORY_LINE_ITEM, lineItemArray);
+        return addedArray.length > 0;
+    }
+} 
