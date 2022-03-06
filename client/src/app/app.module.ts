@@ -19,6 +19,7 @@ import { SignupComponent } from './signup/signup.component';
 import { UserService } from './user.services';
 import { MessageResponseComponent } from './message-response/message-response.component';
 import { BackgroundComponent } from './background/background.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const  appRoutes: Routes = [
   { path: "", component: HomeComponent},
@@ -26,7 +27,8 @@ const  appRoutes: Routes = [
   { path: "recipesDetail", component: RecipesDetailsComponent},
   { path: "mealPlanner", component: MealPlannerComponent},
   { path: "login", component: LoginComponent},
-  { path: "signup", component: SignupComponent}
+  { path: "signup", component: SignupComponent},
+  { path: "profile", component: ProfileComponent}
 ]
 
 @NgModule({
@@ -40,6 +42,7 @@ const  appRoutes: Routes = [
     SignupComponent,
     MessageResponseComponent,
     BackgroundComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
