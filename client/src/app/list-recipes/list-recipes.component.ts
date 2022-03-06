@@ -19,12 +19,14 @@ export class ListRecipesComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    if (this.recipesList.length == 0) {
+      this.recipesList = JSON.parse(window.sessionStorage.getItem("recipesList") || "")
+    }
   }
 
-  searchRecipe(searchTerm: string) {
+  async searchRecipe(searchTerm: string) {
     this.recipesList = []
-    this.recipesService.getRecipe(searchTerm)
+    await this.recipesService.getRecipe(searchTerm)
       .then(data => {
         data.forEach(element => {
           this.recipesList.push(element as Recipe)
@@ -33,6 +35,7 @@ export class ListRecipesComponent implements OnInit {
         alert("Unable to find recipe, please search again")
         this.ngOnInit()
       })
+    window.sessionStorage.setItem("recipesList", JSON.stringify(this.recipesList))
     console.log(this.recipesList.length)
   }
 
