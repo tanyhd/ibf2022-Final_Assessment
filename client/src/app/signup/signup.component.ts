@@ -35,7 +35,8 @@ export class SignupComponent implements OnInit {
       this.returnMessage = result as Message
     }). catch(error => {
       console.log(error.message)
-      alert("")
+      alert("Email has been taken")
+
       this.ngOnInit()
     })
 

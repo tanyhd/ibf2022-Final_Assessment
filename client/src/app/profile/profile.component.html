@@ -1,1 +1,42 @@
-<p>profile works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+  <div class="background">
+    <div class="body-wrapper">
+      <div class="contant-wrapper">
+        <div class="container" *ngIf="status != ''">
+          <div class="text-content">
+            <h1 class="title">
+              Welcome {{userInfo.name}}
+            </h1>
+            <h2>Profile Page</h2>
+            <p>Username: {{userInfo.username}}</p>
+            <p>Email: {{userInfo.email}}</p>
+            <h2>Inventory List</h2>
+            <div *ngFor="let item of userInfo.lineItem">
+              <input type="text" value="{{item.name}}">
+              <input type="number" value="{{item.quantity}}">
+              <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <button type="button" class="btn btn-primary" (click)="signOut()">Sign Out</button>
+          </div>
+        </div>
+        <div class="container" *ngIf="status == ''">
+          <div class="text-content">
+            <h2>
+              Please Login/Signup to view your profile
+            </h2>
+        </div>
+      </div>
+    </div>
+    <app-background></app-background>

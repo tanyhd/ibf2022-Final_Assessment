@@ -12,4 +12,10 @@ export class UserService {
       this.http.post<any>("http://localhost:8080/api/user/Signup", user)
     ))
   }
+
+  getUser(email: string, password: string) {
+    return (lastValueFrom(
+      this.http.get<any>(`http://localhost:8080/api/user/login/${email}/${password}`)
+    ))
+  }
 }
