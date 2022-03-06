@@ -20,15 +20,35 @@
             <h2>Profile Page</h2>
             <p>Username: {{userInfo.username}}</p>
             <p>Email: {{userInfo.email}}</p>
-            <h2>Inventory List</h2>
-            <div *ngFor="let item of userInfo.lineItem">
-              <input type="text" value="{{item.name}}">
-              <input type="number" value="{{item.quantity}}">
-              <button type="button" class="close" aria-label="Close">
+            <h2>Inventory List <span><button type="button" class="btn btn-primary" (click)="addInput()">Add</button></span></h2>
+            <tr *ngIf="lineItemFormArray.value != 0 ||  listOfLineItem.length!= 0">
+              <td>Item: </td>
+              <td>Quantity: </td>
+            </tr>
+
+            <tr *ngFor="let item of listOfLineItem; let i=index">
+              <td><input type="text" value="{{item.name}}" [(ngModel)]="item.name"></td>
+              <td><input type="text" value="{{item.quantity}}" [(ngModel)]="item.quantity"></td>
+              <button type="button" class="close" aria-label="Close" (click)="deleteLineItemList(i)">
                 <span aria-hidden="true">&times;</span>
               </button>
-            </div>
-            <button type="button" class="btn btn-primary" (click)="signOut()">Sign Out</button>
+            </tr>
+
+            <form [formGroup]="form">
+              <div>
+                <tbody formArrayName="listOfItems">
+                  <tr *ngFor="let item of lineItemFormArray.controls; let i=index" formGroupName="{{i}}">
+                    <td><input type="text" formControlName="name"></td>
+                    <td><input type="number" formControlName="quantity"></td>
+                    <button type="button" class="close" aria-label="Close" (click)="deleteLineItem(i)">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </tr>
+                </tbody>
+              </div>
+              <button type="button" class="btn btn-primary" (click)="signOut()">Sign Out</button>
+              <button type="button" class="btn btn-danger" (click)="update()">Update</button>
+            </form>
           </div>
         </div>
         <div class="container" *ngIf="status == ''">

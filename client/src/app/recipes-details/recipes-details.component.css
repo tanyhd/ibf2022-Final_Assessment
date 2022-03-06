@@ -88,4 +88,16 @@ h1.title {
   font-size: 60px;
 }
 
+a.try-btn:hover {
+  background: #c01d31;
+  color: #fff;
+}
 
+a.try-btn {
+  background: #fff;
+  padding: 5px 20px;
+  border-radius: 30px;
+  color: #3f464f;
+  font-weight: 500;
+  transition: .3s;
+}

@@ -19,11 +19,11 @@
             </h1>
             <div class="input-group mb-3">
               <input type="text" class="form-control" placeholder="Type one or more keywords" aria-label="" aria-describedby="button-addon2" #searchTerm>
-              <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="searchRecipe(searchTerm.value)">Search</button>
+              <button class="btn btn-primary" type="button" id="button-addon2" (click)="searchRecipe(searchTerm.value)">Search</button>
             </div>
             <div class="input-group mb-3">
               <input type="file" class="file-input" (change)="onFileSelected($event)" placeholder="Upload Image" aria-label="" aria-describedby="button-addon2">
-              <button class="btn btn-outline-secondary" type="button" (click)="fileUpload()" id="button-addon2">Upload</button>
+              <button class="btn btn-primary" type="button" (click)="fileUpload()" id="button-addon2">Upload</button>
             </div>
           </div>
 

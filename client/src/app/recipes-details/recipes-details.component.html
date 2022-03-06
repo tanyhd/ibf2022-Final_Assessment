@@ -17,12 +17,14 @@
             <h1 class="title">
               {{recipe.label}}
             </h1>
-            <p>Calories Per Serving: {{recipe.caloriesPerServing}}</p>
-            <p>Number of people per serving {{recipe.servings}}</p>
-            <p>Number of ingredients: {{numberOfIngredients}}</p>
-            <p>Source {{recipe.source}}</p>
-            External link {{recipe.url}}
             <br>
+            <p>Calories Per Serving:&nbsp;&nbsp;{{recipe.caloriesPerServing}}&nbsp;kcal</p>
+            <p>Number of people per serving:&nbsp;&nbsp;{{recipe.servings}}</p>
+            <p>Number of ingredients:&nbsp;&nbsp;{{numberOfIngredients}}</p>
+            <p>Source:&nbsp;&nbsp;{{recipe.source}}</p>
+            <p>Detail Cooking Instruction:&nbsp;&nbsp;<a href="{{recipe.url}}" target="_blank" class="try-btn">Link</a></p>
+            <br>
+            <button type="button" class="btn btn-primary" [routerLink]="['/listRecipe']">Back</button>
           </div>
           <div class="background">
             <div class="basic-grid">

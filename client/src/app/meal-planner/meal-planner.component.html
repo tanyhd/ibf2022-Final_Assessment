@@ -74,14 +74,16 @@
               </div>
             </form>
           </div>
-          <div class="btn-group" role="group" aria-label="Basic example" *ngIf="recipesListBreakfast.length > 0">
-            <button type="button" class="btn btn-secondary" (click)="monday()">Monday</button>
-            <button type="button" class="btn btn-secondary" (click)="tuesday()">Tuesday</button>
-            <button type="button" class="btn btn-secondary" (click)="wednesday()">Wednesday</button>
-            <button type="button" class="btn btn-secondary" (click)="thursday()">Thursday</button>
-            <button type="button" class="btn btn-secondary" (click)="friday()">Friday</button>
-            <button type="button" class="btn btn-secondary" (click)="saturday()">Saturday</button>
-            <button type="button" class="btn btn-secondary" (click)="sunday()">Sunday</button>
+          <div class="dailyNavbar">
+            <div class="btn-group" role="group" aria-label="Basic example" *ngIf="recipesListBreakfast.length > 0">
+              <button type="button" class="btn btn-primary" (click)="monday()">Monday</button>
+              <button type="button" class="btn btn-primary" (click)="tuesday()">Tuesday</button>
+              <button type="button" class="btn btn-primary" (click)="wednesday()">Wednesday</button>
+              <button type="button" class="btn btn-primary" (click)="thursday()">Thursday</button>
+              <button type="button" class="btn btn-primary" (click)="friday()">Friday</button>
+              <button type="button" class="btn btn-primary" (click)="saturday()">Saturday</button>
+              <button type="button" class="btn btn-primary" (click)="sunday()">Sunday</button>
+            </div>
           </div>
 
           <div class="basic-grid">
