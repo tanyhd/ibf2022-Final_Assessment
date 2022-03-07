@@ -78,6 +78,7 @@ public class UserRepository {
         SqlRowSet rsUser = template.queryForRowSet(SQL_GET_USER_ID_FROM_EMAIL, user.getEmail());
         while(rsUser.next()) {
             id = rsUser.getInt("id");
+            System.out.println(id);
         }
         template.update(SQL_DELETE_USER_INVENTORY_LIST, id);
         List<Object[]> lineItemArray = user.getLineItem().stream()

@@ -97,14 +97,21 @@ public class UserRestController {
             JsonReader reader = Json.createReader(is);
             JsonObject result = reader.readObject();
             user.setEmail(result.getString("email"));
+            System.out.println(result);
             List<InventoryLineItem> lineItemList = new LinkedList<>();
             JsonArray readings = result.getJsonArray("lineItem");
 
             for(int i = 0; i < readings.size(); i++) {
                 InventoryLineItem lineItem = new InventoryLineItem();
                 JsonObject obj = (JsonObject) readings.get(i);
+                System.out.println(obj.getString("name"));
                 lineItem.setName(obj.getString("name"));
-                lineItem.setQuantity(obj.getInt("quantity"));
+                try {
+                    lineItem.setQuantity(obj.getInt("quantity"));
+                } catch(Exception e) {
+                    lineItem.setQuantity(Integer.parseInt(obj.getString("quantity")));
+                }
+                
                 lineItemList.add(lineItem);
             }
             user.setLineItem(lineItemList);
