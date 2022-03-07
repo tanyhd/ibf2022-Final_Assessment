@@ -36,6 +36,12 @@ export class MealPlannerComponent implements OnInit {
       mealType: this.fb.control(""),
       calories: this.fb.control("")
     })
+
+    this.recipesListBreakfast = JSON.parse(window.sessionStorage.getItem("recipesBreakfastList") || "")
+    this.recipesListSnack = JSON.parse(window.sessionStorage.getItem("recipesSnackList") || "")
+    this.recipesListLunch = JSON.parse(window.sessionStorage.getItem("recipesLunchList") || "")
+    this.recipesListTeatime = JSON.parse(window.sessionStorage.getItem("recipesTeatimeList") || "")
+    this.recipesListDinner = JSON.parse(window.sessionStorage.getItem("recipesDinnerList") || "")
   }
 
   monday(){this.day=1}
@@ -46,7 +52,7 @@ export class MealPlannerComponent implements OnInit {
   saturday(){this.day=6}
   sunday(){this.day=7}
 
-  searchRecipeFromRequirement() {
+  async searchRecipeFromRequirement() {
     this.recipesListBreakfast = []
     this.recipesListSnack = []
     this.recipesListLunch = []
@@ -59,50 +65,55 @@ export class MealPlannerComponent implements OnInit {
     this.caloriesForEachMeal(this.form.value.mealType)
 
     let requirement = this.form.value.diet + " Breakfast " + this.caloriesBreakfast;
-      this.recipesService.getRecipeFromRequirement(requirement)
+    await this.recipesService.getRecipeFromRequirement(requirement)
         .then(data => {
           data.forEach(element => {
             this.recipesListBreakfast.push(element as Recipe)
           })
         })
+    window.sessionStorage.setItem("recipesBreakfastList", JSON.stringify(this.recipesListBreakfast))
     requirement = this.form.value.diet + " Dinner " + this.caloriesDinner;
-    this.recipesService.getRecipeFromRequirement(requirement)
+    await this.recipesService.getRecipeFromRequirement(requirement)
       .then(data => {
         data.forEach(element => {
           this.recipesListDinner.push(element as Recipe)
         })
       })
-
+    window.sessionStorage.setItem("recipesDinnerList", JSON.stringify(this.recipesListDinner))
     if(this.form.value.mealType == 3) {
       requirement = this.form.value.diet + " Lunch " + this.caloriesLunch;
-      this.recipesService.getRecipeFromRequirement(requirement)
+     await this.recipesService.getRecipeFromRequirement(requirement)
         .then(data => {
           data.forEach(element => {
             this.recipesListLunch.push(element as Recipe)
           })
         })
+      window.sessionStorage.setItem("recipesLunchList", JSON.stringify(this.recipesListLunch))
     } else if (this.form.value.mealType == 5) {
       requirement = this.form.value.diet + " Snack " + this.caloriesSnack;
-      this.recipesService.getRecipeFromRequirement(requirement)
+      await this.recipesService.getRecipeFromRequirement(requirement)
         .then(data => {
           data.forEach(element => {
             this.recipesListSnack.push(element as Recipe)
           })
         })
+      window.sessionStorage.setItem("recipesSnackList", JSON.stringify(this.recipesListSnack))
       requirement = this.form.value.diet + " Teatime " + this.caloriesTeatime;
-      this.recipesService.getRecipeFromRequirement(requirement)
+      await this.recipesService.getRecipeFromRequirement(requirement)
         .then(data => {
           data.forEach(element => {
             this.recipesListTeatime.push(element as Recipe)
           })
         })
+        window.sessionStorage.setItem("recipesTeatimeList", JSON.stringify(this.recipesListTeatime))
         requirement = this.form.value.diet + " Lunch " + this.caloriesLunch;
-        this.recipesService.getRecipeFromRequirement(requirement)
+        await this.recipesService.getRecipeFromRequirement(requirement)
           .then(data => {
             data.forEach(element => {
               this.recipesListLunch.push(element as Recipe)
             })
           })
+        window.sessionStorage.setItem("recipesLunchList", JSON.stringify(this.recipesListLunch))
     }
 
   }
@@ -122,6 +133,10 @@ export class MealPlannerComponent implements OnInit {
       this.caloriesBreakfast = "500-700"
       this.caloriesDinner = "500-700"
     }
+  }
+
+  tempRecipe(recipe: Recipe) {
+    window.sessionStorage.setItem("tempRecipe", JSON.stringify(recipe))
   }
 
 }

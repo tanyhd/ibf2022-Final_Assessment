@@ -90,4 +90,8 @@ export class ListRecipesComponent implements OnInit {
     var blob = new Blob([ab], {type: mimeString});
     return blob;
   }
+
+  tempRecipe(recipe: Recipe) {
+    window.sessionStorage.setItem("tempRecipe", JSON.stringify(recipe))
+  }
 }

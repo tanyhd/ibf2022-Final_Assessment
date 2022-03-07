@@ -10,19 +10,19 @@ export class RecipesService {
 
   getRecipe(searchTerm: string) {
     return(lastValueFrom(
-      this.http.get<Recipe[]>(`http://localhost:8080/api/recipes/${searchTerm}`)
+      this.http.get<Recipe[]>(`/api/recipes/${searchTerm}`)
     ))
   }
 
   getRecipeFromRequirement(requirement: string) {
     return(lastValueFrom(
-      this.http.get<Recipe[]>(`http://localhost:8080/api/recipes/meal/${requirement}`)
+      this.http.get<Recipe[]>(`/api/recipes/meal/${requirement}`)
     ))
   }
 
   postImageToSearch_Food(formData: FormData) {
     return(lastValueFrom(
-      this.http.post<any>("http://localhost:8080/api/getFoodLabel", formData)
+      this.http.post<any>("/api/getFoodLabel", formData)
     ))
   }
 }

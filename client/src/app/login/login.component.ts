@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.userService.getUser(this.form.value.email, this.form.value.password)
+    this.userService.userLogin(this.form.value.email, this.form.value.password)
       .then(result => {
         this.userInfo = result as UserInfo
         window.sessionStorage.setItem("userInfo", JSON.stringify(this.userInfo))

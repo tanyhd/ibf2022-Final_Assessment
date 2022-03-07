@@ -24,7 +24,7 @@
             <p>Source:&nbsp;&nbsp;{{recipe.source}}</p>
             <p>Detail Cooking Instruction:&nbsp;&nbsp;<a href="{{recipe.url}}" target="_blank" class="try-btn">Link</a></p>
             <br>
-            <button type="button" class="btn btn-primary" [routerLink]="['/listRecipe']">Back</button>
+            <button type="button" class="btn btn-primary" (click)="back()">Back</button>
           </div>
           <div class="background">
             <div class="basic-grid">

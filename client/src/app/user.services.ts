@@ -9,19 +9,19 @@ export class UserService {
 
   addNewUser(user: User) {
     return (lastValueFrom(
-      this.http.post<any>("http://localhost:8080/api/user/Signup", user)
+      this.http.post<any>("/api/user/Signup", user)
     ))
   }
 
-  getUser(email: string, password: string) {
+  userLogin(email: string, password: string) {
     return (lastValueFrom(
-      this.http.get<any>(`http://localhost:8080/api/user/login/${email}/${password}`)
+      this.http.post<any>("/api/user/login", {"email": email, "password" : password})
     ))
   }
 
   updateUser(userInfo: UserInfo) {
     return (lastValueFrom(
-      this.http.post<any>("http://localhost:8080/api/user/update", userInfo)
+      this.http.post<any>("/api/user/update", userInfo)
     ))
   }
 }

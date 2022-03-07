@@ -38,7 +38,7 @@
                     <li class="list-group-item"><strong>Servings: </strong>{{recipe.servings}} pax</li>
                     <li class="list-group-item"><strong>Ingredients: </strong>{{recipe.ingredients.length}}</li>
                   </ul>
-                  <a href="#" class="btn btn-primary" [routerLink]="['/recipesDetail']" [state]="{ data: {recipe}}">Details</a>
+                  <a href="#" class="btn btn-primary" [routerLink]="['/recipesDetail']" (click)="tempRecipe(recipe)" [state]="{ data: 'listRecipe'}">Details</a>
                 </div>
               </div>
             </div>
