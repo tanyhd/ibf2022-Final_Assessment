@@ -34,7 +34,7 @@ public class MailService {
         msg.setFrom(new InternetAddress("\"The Carrot Chef\" <dtanyhmail@gmail.com>", false));
      
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail));
-        msg.setSubject("Welcome " + userName + " to Food App");
+        msg.setSubject("Welcome " + userName + " to The Carrot Chef");
         msg.setContent("Test contents", "text/html");
         msg.setSentDate(new Date());
      

@@ -16,11 +16,22 @@ create table user_profile (
 create table inventory_line_item (
 	item_id int auto_increment not null,
     name varchar(64),
-    quantity int,inventory_line_itemuser_profile
+    quantity int,
     user_id int,
     
     primary key(item_id),
     constraint fk_user_id
 		foreign key(user_id)
         references user_profile (user_id)
+);
+
+
+create table recipe_list(
+ recipeList_id int auto_increment not null,
+ recipeListString text,
+ user_id int,
+ 
+ primary key(recipeList_id),
+	foreign key(user_id)
+    references user_profile (user_id)
 );

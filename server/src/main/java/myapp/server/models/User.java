@@ -15,8 +15,15 @@ public class User {
     String name;
     String email;
     String password;
-    List<InventoryLineItem> lineItem = new LinkedList<>(); 
+    List<InventoryLineItem> lineItem = new LinkedList<>();
+    String recipeList = "";
 
+    public String getRecipeList() {
+        return recipeList;
+    }
+    public void setRecipeList(String recipeList) {
+        this.recipeList = recipeList;
+    }
     public List<InventoryLineItem> getLineItem() {
         return lineItem;
     }
@@ -69,6 +76,7 @@ public class User {
                 .add("name", name)
                 .add("email", email)
                 .add("lineItem", lineItemsToJson())
+                .add("recipeListString", recipeList)
                 .build();
     }
 

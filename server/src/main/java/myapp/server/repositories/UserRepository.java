@@ -26,6 +26,9 @@ public class UserRepository {
     public static final String SQL_DELETE_USER_INVENTORY_LIST = "delete from inventory_line_item where user_id = ?";
     public static final String SQL_GET_USER_ID_FROM_EMAIL = "select user_id as id from user_profile where email = ?";
     public static final String SQL_ADD_INVENTORY_LINE_ITEM = "INSERT INTO inventory_line_item (name, quantity, user_id) VALUES(?, ?, ?)";
+    public static final String SQL_ADD_RECIPELIST = "insert into recipe_list (recipeListString, user_id) VALUES(?, ?)";
+    public static final String SQL_DELETE_USER_RECIPELIST = "delete from recipe_list where user_id = ?";
+    public static final String SQL_GET_USER_RECIPELIST = "select recipeListString from recipe_list where user_id = ?";  
 
     public boolean addUser(User user) {
         int added = template.update(SQL_ADD_USER, user.getUsername(), user.getName(), user.getEmail(), user.getPassword());
@@ -68,6 +71,11 @@ public class UserRepository {
             while(rsUser.next()) {
                 user = user.populate(rsUser, inventoryLineItemList);
             }
+
+            SqlRowSet rsRecipeList = template.queryForRowSet(SQL_GET_USER_RECIPELIST, id);
+            while(rsRecipeList.next()) {
+                user.setRecipeList(rsRecipeList.getString("recipeListString"));
+            }
             return user;
         } 
     }
@@ -86,6 +94,9 @@ public class UserRepository {
                                         .collect(Collectors.toList());
         int addedArray[] = template.batchUpdate(
                         SQL_ADD_INVENTORY_LINE_ITEM, lineItemArray);
-        return addedArray.length > 0;
+        
+        template.update(SQL_DELETE_USER_RECIPELIST, id);
+        int add = template.update(SQL_ADD_RECIPELIST, user.getRecipeList() , id);
+        return add + addedArray.length > 0;
     }
 } 
