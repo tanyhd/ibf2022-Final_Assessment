@@ -26,7 +26,7 @@ export class MealPlannerComponent implements OnInit {
   recipesListTeatime: Recipe[] = []
   recipesListDinner: Recipe[] = []
 
-  day: number = 0;
+  day: number = 1;
 
   constructor(private router: Router, private recipesService: RecipesService, private http: HttpClient, private fb:FormBuilder) { }
 
@@ -37,11 +37,21 @@ export class MealPlannerComponent implements OnInit {
       calories: this.fb.control("")
     })
 
-    this.recipesListBreakfast = JSON.parse(window.sessionStorage.getItem("recipesBreakfastList") || "")
-    this.recipesListSnack = JSON.parse(window.sessionStorage.getItem("recipesSnackList") || "")
-    this.recipesListLunch = JSON.parse(window.sessionStorage.getItem("recipesLunchList") || "")
-    this.recipesListTeatime = JSON.parse(window.sessionStorage.getItem("recipesTeatimeList") || "")
-    this.recipesListDinner = JSON.parse(window.sessionStorage.getItem("recipesDinnerList") || "")
+    try{
+      this.recipesListBreakfast = JSON.parse(window.sessionStorage.getItem("recipesBreakfastList") || "")
+    } catch(e) {}
+    try {
+      this.recipesListSnack = JSON.parse(window.sessionStorage.getItem("recipesSnackList") || "")
+    } catch(e) {}
+    try {
+      this.recipesListLunch = JSON.parse(window.sessionStorage.getItem("recipesLunchList") || "")
+    } catch(e) {}
+    try {
+      this.recipesListTeatime = JSON.parse(window.sessionStorage.getItem("recipesTeatimeList") || "")
+    } catch(e) {}
+    try {
+      this.recipesListDinner = JSON.parse(window.sessionStorage.getItem("recipesDinnerList") || "")
+    } catch(e) {}
   }
 
   monday(){this.day=1}

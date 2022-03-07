@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Message, User } from '../models';
 import { UserService } from '../user.services';
 
@@ -13,7 +14,7 @@ export class SignupComponent implements OnInit {
   form!: FormGroup
   returnMessage!: Message;
 
-  constructor(private fb: FormBuilder, private userService: UserService) { }
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -33,6 +34,8 @@ export class SignupComponent implements OnInit {
     this.userService.addNewUser(newUser).then(result => {
       console.log(result as Message)
       this.returnMessage = result as Message
+      this.router.navigate(['/'])
+      alert("Account create, please login")
     }). catch(error => {
       console.log(error.message)
       alert("Email has been taken")

@@ -37,6 +37,7 @@ export interface UserInfo {
   name: string;
   email: string;
   lineItem: LineItem[];
+  recipeListString: string;
 }
 
 export interface LineItem {

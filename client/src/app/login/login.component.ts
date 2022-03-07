@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserInfo } from '../models';
+import { Recipe, UserInfo } from '../models';
 import { UserService } from '../user.services';
 
 @Component({
@@ -29,7 +29,10 @@ export class LoginComponent implements OnInit {
         this.userInfo = result as UserInfo
         window.sessionStorage.setItem("userInfo", JSON.stringify(this.userInfo))
         this.router.navigate(['/profile'])
-      }).catch(error => {console.log(error.message)})
+      }).catch(error => {
+        console.log(error.message)
+        alert("Wrong email/password")
+      })
   }
 
 }

@@ -20,7 +20,9 @@ export class ListRecipesComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.recipesList.length == 0) {
-      this.recipesList = JSON.parse(window.sessionStorage.getItem("recipesList") || "")
+      try {
+        this.recipesList = JSON.parse(window.sessionStorage.getItem("recipesList") || "")
+      } catch(e) {}
     }
   }
 
