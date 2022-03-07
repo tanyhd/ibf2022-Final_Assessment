@@ -24,6 +24,7 @@
             <p>Source:&nbsp;&nbsp;{{recipe.source}}</p>
             <p>Detail Cooking Instruction:&nbsp;&nbsp;<a href="{{recipe.url}}" target="_blank" class="try-btn">Link</a></p>
             <br>
+            <button type="button" class="btn btn-danger" (click)="saveRecipe()">Save</button>
             <button type="button" class="btn btn-primary" (click)="back()">Back</button>
           </div>
           <div class="background">
@@ -39,6 +40,7 @@
                 </div>
               </div>
             </div>
+
           </div>
           <app-background></app-background>
         </div>

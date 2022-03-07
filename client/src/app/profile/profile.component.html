@@ -46,9 +46,28 @@
                   </tr>
                 </tbody>
               </div>
-              <button type="button" class="btn btn-primary" (click)="signOut()">Sign Out</button>
-              <button type="button" class="btn btn-danger" (click)="update()">Update</button>
+              <div class="padding">
+                <button type="button" class="btn btn-primary" (click)="signOut()">Sign Out</button>
+                <button type="button" class="btn btn-danger" (click)="update()">Update</button>
+              </div>
             </form>
+            <div class="padding"></div>
+            <div class="background">
+              <div class="basic-grid">
+                <div class="card" style="width: 18rem;" *ngFor="let recipe of recipesList">
+                  <img src={{recipe.imageUrl}} class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title" style="color:black;">{{recipe.label}}</h5>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item"><strong>Calories: </strong>{{recipe.caloriesPerServing}} kcal</li>
+                      <li class="list-group-item"><strong>Servings: </strong>{{recipe.servings}} pax</li>
+                      <li class="list-group-item"><strong>Ingredients: </strong>{{recipe.ingredients.length}}</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" [routerLink]="['/recipesDetail']" (click)="tempRecipe(recipe)" [state]="{ data: 'profile'}">Details</a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="container" *ngIf="status == ''">

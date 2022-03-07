@@ -55,11 +55,11 @@ export class ListRecipesComponent implements OnInit {
     this.base64textString= "data:image/jpeg;base64,"+ btoa(binaryString);
   }
 
-  fileUpload() {
+  async fileUpload() {
     const formData = new FormData();
     formData.set('image', this.dataURItoBlob(this.base64textString))
     this.recipesList = []
-    this.recipesService.postImageToSearch_Food(formData)
+    await this.recipesService.postImageToSearch_Food(formData)
       .then(data => {
         data.forEach((element: Recipe) => {
           this.recipesList.push(element as Recipe)
@@ -68,7 +68,7 @@ export class ListRecipesComponent implements OnInit {
         alert("Unable to find recipe, please search again")
         this.ngOnInit()
       })
-
+    window.sessionStorage.setItem("recipesList", JSON.stringify(this.recipesList))
     console.log(this.recipesList.length)
   }
 

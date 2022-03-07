@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LineItem, UserInfo } from '../models';
+import { LineItem, Recipe, UserInfo } from '../models';
 import { UserService } from '../user.services';
 
 
@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   form!: FormGroup
   lineItemFormArray!: FormArray
   listOfLineItem: LineItem[] = []
+  recipesList: Recipe[] = []
 
   constructor(private router: Router, private fb: FormBuilder, private userService: UserService) { }
 
@@ -35,6 +36,12 @@ export class ProfileComponent implements OnInit {
       for(let i = 0; i < this.userInfo.lineItem.length; i++) {
         this.listOfLineItem.push(this.userInfo.lineItem[i] as LineItem)
       }
+    }
+
+    if (this.recipesList.length == 0) {
+      try {
+        this.recipesList = JSON.parse(window.sessionStorage.getItem("saveRecipeList") || "")
+      } catch(e) {}
     }
 
   }
@@ -59,7 +66,9 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUser(tempUserInfo)
       .then(result => {
         console.log(result)
-      }).catch(error => {console.log(error.message)})
+        alert("Information updated");
+      }).catch(error => {
+        console.log(error.message)})
   }
 
   addInput() {
@@ -77,5 +86,9 @@ export class ProfileComponent implements OnInit {
 
   deleteLineItemList(i: number) {
     this.listOfLineItem.splice(i, 1);
+  }
+
+  tempRecipe(recipe: Recipe) {
+    window.sessionStorage.setItem("tempRecipe", JSON.stringify(recipe))
   }
 }
