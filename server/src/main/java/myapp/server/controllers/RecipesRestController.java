@@ -74,7 +74,7 @@ public class RecipesRestController {
     }
 
     //To get food label from supplied image
-    @PostMapping(path="api/getFoodLabel", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(path="/api/getFoodLabel", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> getImageLabel(@RequestParam(name="image") MultipartFile image) throws IOException {
 
         byte[] buff = new byte[0];

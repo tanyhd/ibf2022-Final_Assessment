@@ -39,7 +39,7 @@ public class UserRestController {
     @Autowired
     MailService mailService;
     
-    @PostMapping(path="api/user/Signup", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path="/api/user/Signup", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> newUserSignUp(@RequestBody String payload) throws AddressException, MessagingException, IOException {
         
         User user = new User();
@@ -67,10 +67,18 @@ public class UserRestController {
     }
 
 
-    @GetMapping(path ="api/user/login/{email}/{password}")
-    public ResponseEntity<String> getUser(@PathVariable String email, @PathVariable String password) {
+    @PostMapping(path ="/api/user/login", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> getUser(@RequestBody String body) {
         User user = new User();
-        user = userRepo.getUser(email, password);
+        JsonObject obj;
+		try {
+			JsonReader reader = Json.createReader(new ByteArrayInputStream(body.getBytes("UTF-8")));
+			obj = reader.readObject();
+            user = userRepo.getUser(obj.getString("email"), obj.getString("password"));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+       
         if (user != null) {
             return ResponseEntity.ok(user.toJson().toString());
         } else {
