@@ -60,8 +60,8 @@ public class UserRestController {
         String success = "User added successfully";
         String failure = "failed to add user";
         if (response == true) {
-            //added new user and send email
-            //mailService.sendmail(user.getUsername(), user.getEmail());
+        //added new user and send email
+        mailService.sendmail(user.getUsername(), user.getEmail());
         }
         return responseMessage(response, success, failure);
     }
