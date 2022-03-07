@@ -64,6 +64,7 @@
                       <li class="list-group-item"><strong>Ingredients: </strong>{{recipe.ingredients.length}}</li>
                     </ul>
                     <a href="#" class="btn btn-primary" [routerLink]="['/recipesDetail']" (click)="tempRecipe(recipe)" [state]="{ data: 'profile'}">Details</a>
+                    <button type="button" class="btn btn-danger"(click)="remove(recipe)">Remove</button>
                   </div>
                 </div>
               </div>

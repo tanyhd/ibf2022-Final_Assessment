@@ -91,4 +91,15 @@ export class ProfileComponent implements OnInit {
   tempRecipe(recipe: Recipe) {
     window.sessionStorage.setItem("tempRecipe", JSON.stringify(recipe))
   }
+
+  remove(recipe: Recipe) {
+    let index = 0
+    for(let i = 0; i < this.recipesList.length; i++) {
+      if(this.recipesList[i].label === recipe.label) {
+        index = i
+      }
+    }
+    this.recipesList.splice(index, 1)
+     console.log(index)
+  }
 }
